@@ -11,10 +11,16 @@
     </tr>
     {% for tweet in tweets %}
     <tr>
-      <td>{{ tweet.tweetid }}</td>
-      <td>{{ tweet.tweettype }}</td>
-      <td>{{ tweet.tweettext }}</td>
-      <td>{{ tweet.addedby }}</td>
+        <td>{{ tweet.tweetid }}</td>
+        <td>{{ tweet.tweettype }}</td>
+        <td>{{ tweet.tweettext }}</td>
+        <td>{{ tweet.addedby }}</td>
+        <td>
+            <form method="POST" action="./delete">
+            <input type="hidden" value="{{ tweet.tweetid }}" name="tweetid">
+            <input type="submit" value="Delete">
+            </form>
+        </td>
     </tr>
     {% endfor %}
   </table>
