@@ -124,3 +124,6 @@ dmypy.json
 
 #db
 application/tasks.db
+
+#iDEA
+.idea
