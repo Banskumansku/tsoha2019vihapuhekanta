@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<form method="POST" action="{{ url_for('tweets_create') }}">
+  <input type="text" name="tweetid"/>
+  <input type="radio" name="tweettype" value="normal" checked> Normal
+  <input type="radio" name="tweettype" value="offensive"> Offensive
+  <input type="radio" name="tweettype" value="hateful"> Hateful
+  <input type="submit" value="Add a new tweet"/>
+</form>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <table>
+    <tr>
+      <th>Id</th>
+      <th>Type</th>
+      <th>Text</th>
+      <th>Added By</th>
+      <th></th>
+    </tr>
+    {% for tweet in tweets %}
+    <tr>
+      <td>{{ tweet.tweetid }}</td>
+      <td>{{ tweet.tweettype }}</td>
+      <td>{{ tweet.tweettext }}</td>
+      <td>{{ tweet.addedby }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

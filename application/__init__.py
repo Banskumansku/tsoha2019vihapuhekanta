@@ -4,10 +4,10 @@ app = Flask(__name__)
 
 # Tuodaan SQLAlchemy käyttöön
 from flask_sqlalchemy import SQLAlchemy
-# Käytetään tasks.db-nimistä SQLite-tietokantaa. Kolme vinoviivaa
+# Käytetään tweets.db-nimistä SQLite-tietokantaa. Kolme vinoviivaa
 # kertoo, tiedosto sijaitsee tämän sovelluksen tiedostojen kanssa
 # samassa paikassa
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///tasks.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///tweets.db"
 # Pyydetään SQLAlchemyä tulostamaan kaikki SQL-kyselyt
 app.config["SQLALCHEMY_ECHO"] = True
 
@@ -18,8 +18,8 @@ db = SQLAlchemy(app)
 from application import views
 
 
-from application.tasks import models
-from application.tasks import views
+from application.tweets import models
+from application.tweets import views
 
 # Luodaan lopulta tarvittavat tietokantataulut
 db.create_all()
