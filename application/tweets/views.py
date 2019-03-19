@@ -15,7 +15,6 @@ def tweets_form():
 
 @app.route("/tweets/", methods=["POST"])
 def tweets_create():
-
     t = Tweet(request.form['tweetid'], request.form['tweettype'])
     print("asdasdasda")
     db.session().add(t)
