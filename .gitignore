@@ -127,3 +127,6 @@ application/tasks.db
 
 #iDEA
 .idea
+
+#visualstudio
+.vscode
