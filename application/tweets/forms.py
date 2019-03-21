@@ -5,8 +5,8 @@ class TweetForm(FlaskForm):
     tweetid = StringField("Tweet Id")
     tweettext = StringField("Tweet Text")
     postedby = StringField("Posted By")
-    choices = ['normal', 'offensive', 'hateful']
-    tweettype = SelectField("Type of Text", choices)
+    tweettype = StringField("Type of Text")
+    tweetdescription = StringField("Description")
     class Meta:
         csrf = False
 

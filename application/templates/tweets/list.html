@@ -16,6 +16,7 @@
       <th>Type</th>
       <th>Text</th>
       <th>Added By</th>
+        <th>Description</th>
       <th></th>
     </tr>
     {% for tweet in tweets %}
@@ -24,6 +25,11 @@
         <td>{{ tweet.tweettype }}</td>
         <td>{{ tweet.tweettext }}</td>
         <td>{{ tweet.addedby }}</td>
+        <td>{{ tweet.tweetdescription }}</td>
+        <td>
+        <td>
+            <input type="button" value="Update">
+        </td>
         <td>
             <form method="POST" action="./delete">
             <input type="hidden" value="{{ tweet.tweetid }}" name="tweetid">

@@ -24,7 +24,6 @@ def search_results(search):
             searchQuery = db.session().query(Tweet).filter(Tweet.tweettype.contains(searchString))
             searchResults = searchQuery.all()
     if not searchResults:
-        print("ewhat")
         return redirect(url_for("tweets_index"))
     else:
         return render_template("tweets/list.html", tweets=searchResults, form=search)
@@ -50,7 +49,7 @@ def tweets_create():
 #    if not form.validate():
  #       return render_template("tweets/new.html", form = form)
 
-    t = Tweet(form.tweetid.data, form.tweettype.data)
+    t = Tweet(form.tweetid.data, form.tweettype.data, form.tweetdescription.data)
     db.session().add(t)
     db.session().commit()
 
