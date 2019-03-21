@@ -26,9 +26,8 @@
         <td>{{ tweet.tweettext }}</td>
         <td>{{ tweet.addedby }}</td>
         <td>{{ tweet.tweetdescription }}</td>
+
         <td>
-        <td>
-            <input type="button" value="Update">
         </td>
         <td>
             <form method="POST" action="./delete">
@@ -36,7 +35,10 @@
             <input type="submit" value="Delete">
             </form>
         </td>
+
     </tr>
     {% endfor %}
   </table>
+    <script type="text/javascript">
+    </script>
 {% endblock %}
