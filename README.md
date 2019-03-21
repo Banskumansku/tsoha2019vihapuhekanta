@@ -1,7 +1,12 @@
 # tsoha2019vihapuhekanta
  A web thingie to store tweets with classification
  
+ App here -> https://tsoha2019vihapuhekanta.herokuapp.com/
  
+ DB documentation here -> [Database documentation](https://github.com/Banskumansku/tsoha2019vihapuhekanta/blob/master/Documentation/db.md)
+
+ User case documentation here -> [Use case documentation](https://github.com/Banskumansku/tsoha2019vihapuhekanta/blob/master/Documentation/Usecase.md)
+
  # What??
  User has their own profile and can add tweets using their id to db, with a radio button to classify them to categories
  
