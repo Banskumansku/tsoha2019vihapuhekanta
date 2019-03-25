@@ -1,16 +1,8 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <div>Search for a tweet</div>
-            <form method=post action="{{ url_for('tweets_index') }}">
-            <d1>
-                {{ form.select }}
-                <p>
-                {{ form.search }}
-            </d1>
-            </p><input type="submit" value="Search"/>
-        </form>
-  <table>
+  <p>
+<table>
     <tr>
       <th>Id</th>
       <th>Type</th>
@@ -27,19 +19,22 @@
         <td>{{ tweet.addedby }}</td>
         <td>{{ tweet.tweetdescription }}</td>
         <td>
-            <form method="POST" action="./tweetdelete">
+            <form method="POST" action="./delete">
             <input type="hidden" value="{{ tweet.id }}" name="id">
             <input type="submit" value="Delete">
             </form>
         </td>
         <td>
-            <form method="GET" action="{{ url_for('tweets_view', id = tweet.id) }}">
-            <input type="submit" value="Edit Description">
+            <div>
+            <form method="POST" action="{{ url_for('tweet_edit', id = tweet.id) }}">
+                <input type="text" name="tweetdescription" placeholder="Edit"/>
+                <input type="hidden" value="{{ tweet.id }}" name="id">
+                <input type="submit" value="Edit">
             </form>
+                </div>
         </td>
+
     </tr>
     {% endfor %}
-  </table>
-    <script type="text/javascript">
-    </script>
+  </table>  </p>
 {% endblock %}

@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import Form, StringField, validators, SelectField
 
 class TweetForm(FlaskForm):
+    id = StringField("Id")
     tweetid = StringField("Tweet Id")
     tweettext = StringField("Tweet Text")
     postedby = StringField("Posted By")

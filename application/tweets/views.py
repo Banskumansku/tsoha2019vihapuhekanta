@@ -1,3 +1,5 @@
+from builtins import type
+
 from application import app, db
 from flask import redirect, render_template, request, url_for
 from application.tweets.models import Tweet
@@ -33,10 +35,30 @@ def search_results(search):
 def tweets_form():
     return render_template("tweets/new.html", form = TweetForm())
 
-@app.route("/delete", methods=["POST"])
+@app.route("/tweets/<id>")
+def tweets_view(id):
+    tweets = []
+    tweets = db.session().query(Tweet).filter(Tweet.id.contains(id))
+    return render_template('tweets/tweet.html', tweets = tweets)
+
+@app.route("/tweetsedit", methods=["POST"])
+def tweet_edit():
+    id = request.form.get("id")
+    """tweet = db.session().query(Tweet).filter(Tweet.id.contains(id)).first()
+    tweet.tweetdescription = form.tweetdescription.data
+    db.session.commit()"""
+    print(id)
+    tweet = Tweet.query.filter_by(id=id).first()
+    tweet.tweetdescription = request.form.get("tweetdescription")
+    print(tweet.tweetdescription)
+    print("asdasd")
+    db.session().commit()
+    return redirect(url_for("tweets_index"))
+
+@app.route("/tweetdelete", methods=["POST"])
 def delete():
-    tweetid = request.form.get("tweetid")
-    tweet = Tweet.query.filter_by(tweetid=tweetid).first()
+    id = request.form.get("id")
+    tweet = Tweet.query.filter_by(id=id).first()
     db.session.delete(tweet)
     db.session.commit()
     return redirect(url_for("tweets_index"))
