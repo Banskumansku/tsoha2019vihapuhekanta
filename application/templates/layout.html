@@ -13,6 +13,7 @@
         <a class="active" href="/">Home</a>
         <a href="{{ url_for('tweets_index') }}">List tweets</a>
         <a href="{{ url_for('tweets_form') }}">Add a tweet</a>
+        <a href="{{ url_for('auth_logout') }}">Log out</a>
 
       </p>
       {% else %}
