@@ -17,7 +17,7 @@
       <th>Text</th>
       <th>Added By</th>
         <th>Description</th>
-      <th></th>
+      <th>Account Id</th>
     </tr>
     {% for tweet in tweets %}
     <tr>
@@ -26,6 +26,7 @@
         <td>{{ tweet.tweettext }}</td>
         <td>{{ tweet.addedby }}</td>
         <td>{{ tweet.tweetdescription }}</td>
+        <td>{{ tweet.account_id }}</td>
         <td>
             <form method="POST" action="./tweetdelete">
             <input type="hidden" value="{{ tweet.id }}" name="id">

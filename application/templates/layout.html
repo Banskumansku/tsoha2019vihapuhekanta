@@ -10,11 +10,6 @@
               {% if current_user.is_authenticated %}
       <p>
 	Kirjautunut nimellä {{ current_user.name }}
-              <a class="active" href="/">Home</a>
-            <ul>
-	<li><a href="{{ url_for('tweets_index') }}">List tasks</a></li>
-	<li><a href="{{ url_for('tweets_form') }}">Add a task</a></li>
-      </ul>
         <a class="active" href="/">Home</a>
         <a href="{{ url_for('tweets_index') }}">List tweets</a>
         <a href="{{ url_for('tweets_form') }}">Add a tweet</a>
