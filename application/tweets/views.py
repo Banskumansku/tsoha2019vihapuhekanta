@@ -1,5 +1,7 @@
 from builtins import type
 
+from flask_login import login_required, current_user
+
 from application import app, db
 from flask import redirect, render_template, request, url_for
 from application.tweets.models import Tweet
@@ -32,16 +34,19 @@ def search_results(search):
 
 
 @app.route("/tweets/new/")
+@login_required
 def tweets_form():
     return render_template("tweets/new.html", form = TweetForm())
 
 @app.route("/tweets/<id>")
+@login_required
 def tweets_view(id):
     tweets = []
     tweets = db.session().query(Tweet).filter(Tweet.id.contains(id))
     return render_template('tweets/tweet.html', tweets = tweets)
 
 @app.route("/tweetsedit", methods=["POST"])
+@login_required
 def tweet_edit():
     id = request.form.get("id")
     """tweet = db.session().query(Tweet).filter(Tweet.id.contains(id)).first()
@@ -56,6 +61,7 @@ def tweet_edit():
     return redirect(url_for("tweets_index"))
 
 @app.route("/tweetdelete", methods=["POST"])
+@login_required
 def delete():
     id = request.form.get("id")
     tweet = Tweet.query.filter_by(id=id).first()
@@ -65,6 +71,7 @@ def delete():
 
 
 @app.route("/tweets/", methods=["POST"])
+@login_required
 def tweets_create():
     form = TweetForm(request.form)
 
@@ -72,6 +79,7 @@ def tweets_create():
  #       return render_template("tweets/new.html", form = form)
 
     t = Tweet(form.tweetid.data, form.tweettype.data, form.tweetdescription.data)
+    t.account_id = current_user.id
     db.session().add(t)
     db.session().commit()
 

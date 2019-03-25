@@ -12,6 +12,9 @@ class Tweet(db.Model):
     addedby = db.Column(db.String(100))
     tweetdescription = db.Column(db.String(100))
 
+    account_id = db.Column(db.Integer, db.ForeignKey('account.id'),
+                           nullable=False)
+
 
     def __init__(self, tweetid, tweettype, tweetdescription):
         self.tweetid = tweetid
