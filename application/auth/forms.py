@@ -3,11 +3,12 @@ from wtforms import PasswordField, StringField, SubmitField, ValidationError
 from wtforms.validators import DataRequired, EqualTo
 
 from application.auth.models import User
-
+from flask_wtf import FlaskForm
+from wtforms import BooleanField, StringField, validators
 
 class LoginForm(FlaskForm):
-    username = StringField("Username")
-    password = PasswordField("Password")
+    username = StringField("Username",[validators.Length(min=2)])
+    password = PasswordField("Password", [validators.Length(min=2)])
 
     class Meta:
         csrf = False

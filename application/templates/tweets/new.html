@@ -15,6 +15,9 @@
             <input type="text" name="tweetdescription" placeholder="Can be left blank"/>
         </div>
     </div>
+    	    {% for error in form.tweetid.errors %}
+	    <li>{{ error }}</li>
+	    {% endfor %}
     <input type="submit" value="Add a new tweet" />
 
 </form>

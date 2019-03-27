@@ -75,8 +75,8 @@ def delete():
 def tweets_create():
     form = TweetForm(request.form)
 
-#    if not form.validate():
- #       return render_template("tweets/new.html", form = form)
+    if not form.validate():
+        return render_template("tweets/new.html", form = form)
 
     t = Tweet(form.tweetid.data, form.tweettype.data, form.tweetdescription.data)
     t.account_id = current_user.id
