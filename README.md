@@ -1,6 +1,8 @@
 # tsoha2019vihapuhekanta
  A web thingie to store tweets with classification
  
+ You can create your own account or use asd - asd as the account
+ 
  App here -> https://tsoha2019vihapuhekanta.herokuapp.com/
  
  DB documentation here -> [Database documentation](https://github.com/Banskumansku/tsoha2019vihapuhekanta/blob/master/Documentation/db.md)
