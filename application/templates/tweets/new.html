@@ -1,67 +1,69 @@
 {% extends "layout.html" %}
 {% block body %}
     {% if current_user.is_authenticated %}
-<form method="POST" action="{{ url_for('tweets_create') }}">
-    <div>
-        <input type="text" name="tweetid" />
-        <input type="radio" name="tweettype" id="normal" value="normal" checked> Normal
-        <input type="radio" name="tweettype" id="offensive" value="offensive"> Offensive
-        <input type="radio" name="tweettype" id="hateful" value="hateful"> Hateful
-        <div id="whynothate">
-            <p>Why is this offensive, but not hateful?</p>
-            <input type="text" name="tweetdescription" placeholder="Can be left blank"/>
-        </div>
-        <div id="whyhate">
-            <p>Why is this hateful?</p>
-            <input type="text" name="tweetdescription" placeholder="Can be left blank"/>
-        </div>
-    </div>
-    	    {% for error in form.tweetid.errors %}
-	    <li>{{ error }}</li>
-	    {% endfor %}
-    <input type="submit" value="Add a new tweet" />
+        <form method="POST" action="{{ url_for('tweets_create') }}">
+            <div>
+                <input type="text" name="tweetid"/>
+                <input type="radio" name="tweettype" id="normal" value="normal" checked> Normal
+                <input type="radio" name="tweettype" id="offensive" value="offensive"> Offensive
+                <input type="radio" name="tweettype" id="hateful" value="hateful"> Hateful
+                <div id="whynothate">
+                    <p>Why is this offensive, but not hateful?</p>
+                    <input type="text" name="tweetdescription" placeholder="Can be left blank"/>
+                </div>
+                <div id="whyhate">
+                    <p>Why is this hateful?</p>
+                    <input type="text" name="tweetdescription" placeholder="Can be left blank"/>
+                </div>
+            </div>
+            {% for error in form.tweetid.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        {% for error in form.tweetdescription.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+            <input type="submit" value="Add a new tweet"/>
 
-</form>
-<script type="text/javascript">
-    var normalSelect = document.getElementById('normal')
-    var offensiveSelect = document.getElementById('offensive')
-    var hateSelect = document.getElementById('hateful')
-    var viewOffensive = document.getElementById('whynothate')
-    var viewHate = document.getElementById('whyhate')
+        </form>
+        <script type="text/javascript">
+            var normalSelect = document.getElementById('normal')
+            var offensiveSelect = document.getElementById('offensive')
+            var hateSelect = document.getElementById('hateful')
+            var viewOffensive = document.getElementById('whynothate')
+            var viewHate = document.getElementById('whyhate')
 
-    viewHate.style.display = "none"
-    viewOffensive.style.display = "none"
-    // find elements
+            viewHate.style.display = "none"
+            viewOffensive.style.display = "none"
+            // find elements
 
-    normalSelect.addEventListener("click", function (event) {
-        showNormal()
-        console.log("kilin kalin")
-    })
+            normalSelect.addEventListener("click", function (event) {
+                showNormal()
+            })
 
-    offensiveSelect.addEventListener("click", function (event) {
-        showOffensive()
-        console.log("fukk")
-    })
+            offensiveSelect.addEventListener("click", function (event) {
+                showOffensive()
+            })
 
-    hateSelect.addEventListener("click", function (event) {
-        showHate()
-        console.log("shit");
-    })
+            hateSelect.addEventListener("click", function (event) {
+                showHate()
+            })
 
-    function showOffensive() {
-        viewOffensive.style.display = "block"
-        viewHate.style.display = "none"
-    }
-    function showHate() {
-        viewOffensive.style.display = "none"
-        viewHate.style.display = "block"
-    }
-    function showNormal() {
-        viewOffensive.style.display = "none"
-        viewHate.style.display = "none"
-    }
-</script>
-        {% else %}
+            function showOffensive() {
+                viewOffensive.style.display = "block"
+                viewHate.style.display = "none"
+            }
+
+            function showHate() {
+                viewOffensive.style.display = "none"
+                viewHate.style.display = "block"
+            }
+
+            function showNormal() {
+                viewOffensive.style.display = "none"
+                viewHate.style.display = "none"
+            }
+        </script>
+    {% else %}
         <div>Log in</div>
     {% endif %}
 {% endblock %}

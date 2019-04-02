@@ -46,28 +46,20 @@ def tweets_view(id):
     tweets = db.session().query(Tweet).filter(Tweet.id.contains(id))
     return render_template('tweets/tweet.html', tweets = tweets)
 
-@app.route("/tweetsedit", methods=["POST"])
+@app.route("/tweets/<id>", methods=["POST"])
 @login_required
-def tweet_edit():
-    id = request.form.get("id")
-    """tweet = db.session().query(Tweet).filter(Tweet.id.contains(id)).first()
-    tweet.tweetdescription = form.tweetdescription.data
-    db.session.commit()"""
-    print(id)
+def tweet_edit(id):
     tweet = Tweet.query.filter_by(id=id).first()
     tweet.tweetdescription = request.form.get("tweetdescription")
-    print(tweet.tweetdescription)
-    print("asdasd")
     db.session().commit()
     return redirect(url_for("tweets_index"))
 
 
-@app.route("/tweets/<id>", methods=["POST"])
+@app.route("/tweets/<id>/delete", methods=["POST"])
 @login_required
-def delete(id):
-    idOfTweet = id
-    tweet = Tweet.query.filter_by(id=idOfTweet).first()
-    db.session.delete(tweet)
+def tweet_delete(id):
+    print("mit")
+    db.session.delete(Tweet.query.filter_by(id=id).first())
     db.session.commit()
     return redirect(url_for("tweets_index"))
 
@@ -76,7 +68,6 @@ def delete(id):
 @login_required
 def tweets_create():
     form = TweetForm(request.form)
-
     if not form.validate():
         return render_template("tweets/new.html", form = form)
 
@@ -85,5 +76,4 @@ def tweets_create():
     t.addedby = current_user.name
     db.session().add(t)
     db.session().commit()
-
     return redirect(url_for("tweets_index"))

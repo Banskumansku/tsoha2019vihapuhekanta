@@ -27,12 +27,9 @@
                     <td>{{ tweet.tweetdescription }}</td>
                     <td>{{ tweet.addedby }}</td>
                     <td>
-
-
-                        <form method="POST" action="{{ url_for('delete', id = tweet.id) }}">
+                        <form method="POST" action="{{ url_for('tweet_delete', id = tweet.id) }}">
                             <input type="submit" value="Delete">
                         </form>
-
                     </td>
                     <td>
                         <form method="GET" action="{{ url_for('tweets_view', id = tweet.id) }}">

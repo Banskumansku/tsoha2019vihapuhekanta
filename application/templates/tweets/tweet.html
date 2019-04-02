@@ -19,7 +19,7 @@
         <td>{{ tweet.addedby }}</td>
         <td>{{ tweet.tweetdescription }}</td>
         <td>
-                        <form method="POST" action="{{ url_for('delete', id = tweet.id) }}">
+                        <form method="POST" action="{{ url_for('tweet_delete', id = tweet.id) }}">
                             <input type="submit" value="Delete">
                         </form>
         </td>

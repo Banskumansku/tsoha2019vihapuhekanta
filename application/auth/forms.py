@@ -6,6 +6,7 @@ from application.auth.models import User
 from flask_wtf import FlaskForm
 from wtforms import BooleanField, StringField, validators
 
+
 class LoginForm(FlaskForm):
     username = StringField("Username",[validators.Length(min=2)])
     password = PasswordField("Password", [validators.Length(min=2)])
@@ -23,6 +24,5 @@ class RegistrationForm(FlaskForm):
 
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
-        
         if user is not None:
             raise ValidationError('Please use a different username.')
