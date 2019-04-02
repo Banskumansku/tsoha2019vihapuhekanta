@@ -1,46 +1,50 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <div>Search for a tweet</div>
-            <form method=post action="{{ url_for('tweets_index') }}">
+    {% if current_user.is_authenticated %}
+        <div>Search for a tweet</div>
+        <form method=post action="{{ url_for('tweets_index') }}">
             <d1>
                 {{ form.select }}
                 <p>
-                {{ form.search }}
+                    {{ form.search }}
             </d1>
             </p><input type="submit" value="Search"/>
         </form>
-  <table>
-    <tr>
-      <th>Id</th>
-      <th>Type</th>
-      <th>Text</th>
-      <th>Added By</th>
-        <th>Description</th>
-      <th>Account Id</th>
-    </tr>
-    {% for tweet in tweets %}
-    <tr>
-        <td>{{ tweet.tweetid }}</td>
-        <td>{{ tweet.tweettype }}</td>
-        <td>{{ tweet.tweettext }}</td>
-        <td>{{ tweet.addedby }}</td>
-        <td>{{ tweet.tweetdescription }}</td>
-        <td>{{ tweet.account_id }}</td>
-        <td>
-            <form method="POST" action="./tweetdelete">
-            <input type="hidden" value="{{ tweet.id }}" name="id">
-            <input type="submit" value="Delete">
-            </form>
-        </td>
-        <td>
-            <form method="GET" action="{{ url_for('tweets_view', id = tweet.id) }}">
-            <input type="submit" value="Edit Description">
-            </form>
-        </td>
-    </tr>
-    {% endfor %}
-  </table>
-    <script type="text/javascript">
-    </script>
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Type</th>
+                <th>Text</th>
+                <th>Description</th>
+                <th>Added By</th>
+            </tr>
+            {% for tweet in tweets %}
+                <tr>
+                    <td>{{ tweet.tweetid }}</td>
+                    <td>{{ tweet.tweettype }}</td>
+                    <td>{{ tweet.tweettext }}</td>
+                    <td>{{ tweet.tweetdescription }}</td>
+                    <td>{{ tweet.addedby }}</td>
+                    <td>
+
+
+                        <form method="POST" action="{{ url_for('delete', id = tweet.id) }}">
+                            <input type="submit" value="Delete">
+                        </form>
+
+                    </td>
+                    <td>
+                        <form method="GET" action="{{ url_for('tweets_view', id = tweet.id) }}">
+                            <input type="submit" value="Edit Description">
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <div>Log in</div>
+        <script type="text/javascript">
+        </script>
+    {% endif %}
 {% endblock %}

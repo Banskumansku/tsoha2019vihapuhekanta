@@ -18,7 +18,7 @@ class User(db.Model):
     tweets = db.relationship("Tweet", backref='account', lazy=True)
 
     def __init__(self, username, password):
-        self.name = "asd"
+        self.name = username
         self.username = username
         self.password = password
 

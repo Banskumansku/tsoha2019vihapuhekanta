@@ -60,11 +60,12 @@ def tweet_edit():
     db.session().commit()
     return redirect(url_for("tweets_index"))
 
-@app.route("/tweetdelete", methods=["POST"])
+
+@app.route("/tweets/<id>", methods=["POST"])
 @login_required
-def delete():
-    id = request.form.get("id")
-    tweet = Tweet.query.filter_by(id=id).first()
+def delete(id):
+    idOfTweet = id
+    tweet = Tweet.query.filter_by(id=idOfTweet).first()
     db.session.delete(tweet)
     db.session.commit()
     return redirect(url_for("tweets_index"))
@@ -78,8 +79,9 @@ def tweets_create():
     if not form.validate():
         return render_template("tweets/new.html", form = form)
 
-    t = Tweet(form.tweetid.data, form.tweettype.data, form.tweetdescription.data)
+    t = Tweet(form.tweetid.data, form.tweettype.data, form.tweetdescription.data, current_user.name)
     t.account_id = current_user.id
+    t.addedby = current_user.name
     db.session().add(t)
     db.session().commit()
 

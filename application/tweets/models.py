@@ -15,11 +15,10 @@ class Tweet(db.Model):
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'),
                            nullable=False)
 
-
-    def __init__(self, tweetid, tweettype, tweetdescription):
+    def __init__(self, tweetid, tweettype, tweetdescription, addedby):
         self.tweetid = tweetid
         self.tweettype = tweettype
         self.tweetdescription = tweetdescription
-        self.addedby = "admin"
+        self.addedby = addedby
         self.tweettext = "lorem"
 

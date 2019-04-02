@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
+    {% if current_user.is_authenticated %}
 <form method="POST" action="{{ url_for('tweets_create') }}">
     <div>
         <input type="text" name="tweetid" />
@@ -60,4 +61,7 @@
         viewHate.style.display = "none"
     }
 </script>
+        {% else %}
+        <div>Log in</div>
+    {% endif %}
 {% endblock %}
