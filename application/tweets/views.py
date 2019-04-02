@@ -9,6 +9,7 @@ from application.tweets.forms import TweetForm, TweetSeachForm
 
 
 @app.route("/tweets", methods=['GET', 'POST'])
+@login_required
 def tweets_index():
     search = TweetSeachForm(request.form)
     if request.method == 'POST':
@@ -18,6 +19,7 @@ def tweets_index():
     return render_template("tweets/list.html", tweets=tweets, form=search)
 
 @app.route("/tweets/results")
+@login_required
 def search_results(search):
     searchResults = []
     searchString = search.data['search']

@@ -7,19 +7,15 @@
                 <input type="radio" name="tweettype" id="normal" value="normal" checked> Normal
                 <input type="radio" name="tweettype" id="offensive" value="offensive"> Offensive
                 <input type="radio" name="tweettype" id="hateful" value="hateful"> Hateful
-                <div id="whynothate">
-                    <p>Why is this offensive, but not hateful?</p>
-                    <input type="text" name="tweetdescription" placeholder="Can be left blank"/>
-                </div>
-                <div id="whyhate">
-                    <p>Why is this hateful?</p>
+                <div id="description">
+                    <p id="descriptionText"></p>
                     <input type="text" name="tweetdescription" placeholder="Can be left blank"/>
                 </div>
             </div>
             {% for error in form.tweetid.errors %}
                 <li>{{ error }}</li>
             {% endfor %}
-        {% for error in form.tweetdescription.errors %}
+            {% for error in form.tweetdescription.errors %}
                 <li>{{ error }}</li>
             {% endfor %}
             <input type="submit" value="Add a new tweet"/>
@@ -29,11 +25,9 @@
             var normalSelect = document.getElementById('normal')
             var offensiveSelect = document.getElementById('offensive')
             var hateSelect = document.getElementById('hateful')
-            var viewOffensive = document.getElementById('whynothate')
-            var viewHate = document.getElementById('whyhate')
-
-            viewHate.style.display = "none"
-            viewOffensive.style.display = "none"
+            var viewNotNormal = document.getElementById('description')
+            var descriptor = document.getElementById('descriptionText')
+            viewNotNormal.style.display = "none"
             // find elements
 
             normalSelect.addEventListener("click", function (event) {
@@ -41,26 +35,22 @@
             })
 
             offensiveSelect.addEventListener("click", function (event) {
-                showOffensive()
+                showNotNormal()
+                descriptor.innerText = "Why is this offensive, but not hateful?"
+
             })
 
             hateSelect.addEventListener("click", function (event) {
-                showHate()
+                showNotNormal()
+                descriptor.innerText = "Why is this hateful?"
             })
 
-            function showOffensive() {
-                viewOffensive.style.display = "block"
-                viewHate.style.display = "none"
-            }
-
-            function showHate() {
-                viewOffensive.style.display = "none"
-                viewHate.style.display = "block"
+            function showNotNormal() {
+                viewNotNormal.style.display = "block"
             }
 
             function showNormal() {
-                viewOffensive.style.display = "none"
-                viewHate.style.display = "none"
+                viewNotNormal.style.display = "none"
             }
         </script>
     {% else %}

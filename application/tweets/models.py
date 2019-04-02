@@ -22,3 +22,12 @@ class Tweet(db.Model):
         self.addedby = addedby
         self.tweettext = "lorem"
 
+    @staticmethod
+    def most_submitting_users():
+        print("juu")
+        # Prints the most submitting users with amount of tweets
+
+    @staticmethod
+    def find_users_with_no_tasks():
+        print("jiuu")
+        # Does something else
