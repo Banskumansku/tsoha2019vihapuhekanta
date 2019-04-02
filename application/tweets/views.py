@@ -13,7 +13,9 @@ def tweets_index():
     search = TweetSeachForm(request.form)
     if request.method == 'POST':
         return search_results(search)
-    return render_template("tweets/list.html", tweets=Tweet.query.all(), form=search)
+    tweetquery = db.session().query(Tweet).filter(Tweet.account_id.contains(current_user.id))
+    tweets = tweetquery.all()
+    return render_template("tweets/list.html", tweets=tweets, form=search)
 
 @app.route("/tweets/results")
 def search_results(search):
