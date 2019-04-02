@@ -24,15 +24,14 @@ def search_results(search):
 
     if searchString:
         if search.data['select'] == 'Tweet Id':
-            searchQuery = db.session().query(Tweet).filter(Tweet.tweetid.contains(searchString))
+            searchQuery = db.session().query(Tweet).filter(Tweet.tweetid.contains(searchString),
+                                                           Tweet.account_id.contains(current_user.id))
             searchResults = searchQuery.all()
         elif search.data['select'] == 'Tweet Type':
-            searchQuery = db.session().query(Tweet).filter(Tweet.tweettype.contains(searchString))
+            searchQuery = db.session().query(Tweet).filter(Tweet.tweettype.contains(searchString),
+                                                           Tweet.account_id.contains(current_user.id))
             searchResults = searchQuery.all()
-    if not searchResults:
-        return redirect(url_for("tweets_index"))
-    else:
-        return render_template("tweets/list.html", tweets=searchResults, form=search)
+    return render_template("tweets/list.html", tweets=searchResults, form=search)
 
 
 @app.route("/tweets/new/")
