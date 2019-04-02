@@ -1,3 +1,4 @@
+from sqlalchemy import text
 
 from application import db
 
@@ -21,13 +22,3 @@ class Tweet(db.Model):
         self.tweetdescription = tweetdescription
         self.addedby = addedby
         self.tweettext = "lorem"
-
-    @staticmethod
-    def most_submitting_users():
-        print("juu")
-        # Prints the most submitting users with amount of tweets
-
-    @staticmethod
-    def find_users_with_no_tasks():
-        print("jiuu")
-        # Does something else

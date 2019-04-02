@@ -1,7 +1,26 @@
 {% extends "layout.html" %}
-
 {% block body %}
-  <p>
-    Hello world!
-  </p>
+    {% if current_user.is_authenticated %}
+        <h2>
+            {{ current_user.name }}
+        </h2>
+
+        <h3>
+            <p>Tweets added {{ tweets }}</p>
+        </h3>
+        <h4>
+            Normal {{ tweetsNormal }}
+        </h4>
+        <h4>
+            Offensive {{ tweetsOffensive }}
+        </h4>
+        <h4>
+            Hateful {{ tweetsHateful }}
+        </h4>
+
+    {% else %}
+        <h1>
+            Hello, please login or register.
+        </h1>
+    {% endif %}
 {% endblock %}

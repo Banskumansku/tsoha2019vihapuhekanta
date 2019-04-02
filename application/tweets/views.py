@@ -39,14 +39,14 @@ def search_results(search):
 @app.route("/tweets/new/")
 @login_required
 def tweets_form():
-    return render_template("tweets/new.html", form = TweetForm())
+    return render_template("tweets/new.html", form=TweetForm())
 
 @app.route("/tweets/<id>")
 @login_required
 def tweets_view(id):
     tweets = []
     tweets = db.session().query(Tweet).filter(Tweet.id.contains(id))
-    return render_template('tweets/tweet.html', tweets = tweets)
+    return render_template('tweets/tweet.html', tweets=tweets)
 
 @app.route("/tweets/<id>", methods=["POST"])
 @login_required
