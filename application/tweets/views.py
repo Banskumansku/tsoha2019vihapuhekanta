@@ -1,5 +1,3 @@
-from builtins import type
-
 from flask_login import login_required, current_user
 
 from application import app, db, api
@@ -26,15 +24,19 @@ def search_results(search):
     searchString = search.data['search']
 
     if searchString:
-        if search.data['select'] == 'Tweet Id':
-            searchQuery = db.session().query(Tweet).filter(Tweet.tweetid.contains(searchString),
+        if search.data['select'] == 'Tweet Text':
+            searchQuery = db.session().query(Tweet).filter(Tweet.tweettext.contains(searchString),
                                                            (Tweet.account_id == current_user.id))
             searchResults = searchQuery.all()
         elif search.data['select'] == 'Tweet Type':
             searchQuery = db.session().query(Tweet).filter(Tweet.tweettype.contains(searchString),
                                                            (Tweet.account_id == current_user.id))
             searchResults = searchQuery.all()
-    return render_template("tweets/list.html", tweets=searchResults, form=search)
+        return render_template("tweets/list.html", tweets=searchResults, form=search)
+    elif searchString == "":
+        searchResults = db.session().query(Tweet).filter(Tweet.account_id == current_user.id)
+        return render_template("tweets/list.html", tweets=searchResults, form=search)
+
 
 
 @app.route("/tweets/new/")

@@ -1,33 +1,68 @@
-  <!DOCTYPE html>
-  <html>
-    <head>
-      <meta charset="utf-8">
-      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-      <title>Vihapuhekanta</title>
-    </head>
-    <body>
-    <div class="topnav">
-              {% if current_user.is_authenticated %}
-      <p>
-	Kirjautunut nimellä {{ current_user.name }}
-        <a class="active" href="/">Home</a>
-        <a href="{{ url_for('tweets_index') }}">List tweets</a>
-        <a href="{{ url_for('tweets_form') }}">Add a tweet</a>
-        <a href="{{ url_for('auth_logout') }}">Log out</a>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <title>Vihapuhekanta</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+    <a class="navbar-brand" href="#">Vihapuhekanta</a>
+    {% if current_user.is_authenticated %}
+        <ul class="navbar-nav mr-auto">
+            <li>
+                <a class="navbar-brand" href="#">Logged in as: {{ current_user.name }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('tweets_index') }}">List tweets</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('tweets_form') }}">Add a tweet</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('auth_logout') }}">Log out</a>
+            </li>
+        </ul>
 
-      </p>
-      {% else %}
-                  <h1>Log in or register to view page</h1>
-                  <a href="{{ url_for('index') }}">Home</a>
-      <a href="{{ url_for('auth_login') }}">Log in</a>
-      <a href="{{ url_for('auth_register') }}"> Register </a>
-      {% endif %}
+    {% else %}
+        <ul class="navbar-nav mr-auto">
+            <li>
+                <a class="navbar-brand" href="#">Log in or register to view page</a>
+            </li>
+            <li>
+                <a class="nav-link" href="{{ url_for('auth_login') }}">Log in</a>
+            </li>
+            <li>
+                <a class="nav-link" href="{{ url_for('auth_register') }}">Register</a>
+            </li>
+        </ul>
+    {% endif %}
 
-    </div>
-      {% block body %}
-      <p>
-	Content.
-      </p>
-      {% endblock %}
-    </body>
-  </html>
+</nav>
+<main role="main" class="container">
+
+    {% block body %}
+        <p>
+            Content.
+        </p>
+    {% endblock %}
+
+</main>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>

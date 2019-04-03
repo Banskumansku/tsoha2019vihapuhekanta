@@ -14,6 +14,6 @@ class TweetForm(FlaskForm):
 
 
 class TweetSeachForm(Form):
-    choices = [('Tweet Id', 'Tweet Id'), ('Tweet Type', 'Tweet Type')]
+    choices = [('Tweet Text', 'Tweet Text'), ('Tweet Type', 'Tweet Type')]
     select = SelectField('Search for tweets: ', choices=choices)
     search = StringField('')
