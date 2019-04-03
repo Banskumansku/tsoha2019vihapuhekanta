@@ -18,6 +18,7 @@ def tweets_index():
     tweets = tweetquery.all()
     return render_template("tweets/list.html", tweets=tweets, form=search)
 
+
 @app.route("/tweets/results")
 @login_required
 def search_results(search):
@@ -41,17 +42,18 @@ def search_results(search):
 def tweets_form():
     return render_template("tweets/new.html", form=TweetForm())
 
+
 @app.route("/tweets/<id>")
 @login_required
 def tweets_view(id):
-    tweets = []
     tweets = db.session().query(Tweet).filter(Tweet.id == id)
     return render_template('tweets/tweet.html', tweets=tweets)
+
 
 @app.route("/tweets/<id>", methods=["POST"])
 @login_required
 def tweet_edit(id):
-    tweet = db.session.delete(Tweet.query.filter_by(id=id).first())
+    tweet = db.session().query(Tweet).filter(Tweet.id == id)
     tweet.tweetdescription = request.form.get("tweetdescription")
     db.session().commit()
     return redirect(url_for("tweets_index"))
@@ -70,7 +72,7 @@ def tweet_delete(id):
 def tweets_create():
     form = TweetForm(request.form)
     if not form.validate():
-        return render_template("tweets/new.html", form = form)
+        return render_template("tweets/new.html", form=form)
 
     t = Tweet(form.tweetid.data, form.tweettype.data, form.tweetdescription.data, current_user.name)
     t.account_id = current_user.id
