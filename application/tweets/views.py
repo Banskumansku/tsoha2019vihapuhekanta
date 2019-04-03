@@ -2,7 +2,7 @@ from builtins import type
 
 from flask_login import login_required, current_user
 
-from application import app, db
+from application import app, db, api
 from flask import redirect, render_template, request, url_for
 from application.tweets.models import Tweet
 from application.tweets.forms import TweetForm, TweetSeachForm
@@ -76,6 +76,10 @@ def tweets_create():
     t = Tweet(form.tweetid.data, form.tweettype.data, form.tweetdescription.data, current_user.name)
     t.account_id = current_user.id
     t.addedby = current_user.name
+    text = api.get_status(t.tweetid)
+    t.tweettext = text.text
     db.session().add(t)
     db.session().commit()
+    # 1113408813963542528
+    # 1113412337455828992
     return redirect(url_for("tweets_index"))

@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for
 from flask_login import login_required, current_user
 
-from application import app, db
+from application import app, db, api
 from application.tweets.models import Tweet
 
 

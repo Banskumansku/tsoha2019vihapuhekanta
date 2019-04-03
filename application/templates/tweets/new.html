@@ -3,7 +3,7 @@
     {% if current_user.is_authenticated %}
         <form method="POST" action="{{ url_for('tweets_create') }}">
             <div>
-                <input type="text" name="tweetid"/>
+                <input type="text" name="tweetid" id="tweetid"/>
                 <input type="radio" name="tweettype" id="normal" value="normal" checked> Normal
                 <input type="radio" name="tweettype" id="offensive" value="offensive"> Offensive
                 <input type="radio" name="tweettype" id="hateful" value="hateful"> Hateful
@@ -23,6 +23,21 @@
 
         </form>
         <script type="text/javascript">
+            function setInputFilter(textbox, inputFilter) {
+                ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function (event) {
+                    textbox.addEventListener(event, function () {
+                        if (inputFilter(this.value)) {
+                            this.oldValue = this.value;
+                            this.oldSelectionStart = this.selectionStart;
+                            this.oldSelectionEnd = this.selectionEnd;
+                        } else if (this.hasOwnProperty("oldValue")) {
+                            this.value = this.oldValue;
+                            this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+                        }
+                    });
+                });
+            }
+
             var normalSelect = document.getElementById('normal')
             var offensiveSelect = document.getElementById('offensive')
             var hateSelect = document.getElementById('hateful')
@@ -56,6 +71,10 @@
                 tweetdescription.value = ""
                 viewNotNormal.style.display = "none"
             }
+
+            setInputFilter(document.getElementById("tweetid"), function (value) {
+                return /^\d*$/.test(value);
+            });
         </script>
     {% else %}
         <div>Log in</div>

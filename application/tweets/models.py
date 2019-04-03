@@ -21,4 +21,3 @@ class Tweet(db.Model):
         self.tweettype = tweettype
         self.tweetdescription = tweetdescription
         self.addedby = addedby
-        self.tweettext = "lorem"

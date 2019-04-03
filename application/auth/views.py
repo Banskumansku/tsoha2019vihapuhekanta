@@ -8,21 +8,16 @@ from application.auth.forms import LoginForm, RegistrationForm
 
 @app.route("/auth/login", methods=["GET", "POST"])
 def auth_login():
-    print("asd1")
     if request.method == "GET":
-        print("asd1.5")
         return render_template("auth/loginform.html", form=LoginForm())
 
     form = LoginForm(request.form)
     # mahdolliset validoinnit
-    print("asd2")
     user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
     if not user:
-        print("asd3")
         return render_template("auth/loginform.html", form=form,
                                error="No such username or password")
 
-    print("asd4")
     login_user(user)
     return redirect(url_for("index"))
 
