@@ -51,7 +51,7 @@ def tweets_view(id):
 @app.route("/tweets/<id>", methods=["POST"])
 @login_required
 def tweet_edit(id):
-    tweet = Tweet.query.filter_by(id=id).first()
+    tweet = db.session.delete(Tweet.query.filter_by(id=id).first())
     tweet.tweetdescription = request.form.get("tweetdescription")
     db.session().commit()
     return redirect(url_for("tweets_index"))
@@ -60,7 +60,6 @@ def tweet_edit(id):
 @app.route("/tweets/<id>/delete", methods=["POST"])
 @login_required
 def tweet_delete(id):
-    print("mit")
     db.session.delete(Tweet.query.filter_by(id=id).first())
     db.session.commit()
     return redirect(url_for("tweets_index"))
@@ -80,6 +79,4 @@ def tweets_create():
     t.tweettext = text.text
     db.session().add(t)
     db.session().commit()
-    # 1113408813963542528
-    # 1113412337455828992
     return redirect(url_for("tweets_index"))

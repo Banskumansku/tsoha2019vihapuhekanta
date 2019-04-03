@@ -15,7 +15,6 @@ import os
 if os.environ.get("HEROKU"):
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
     CONSUMER_KEY = os.environ['CONSUMER_KEY']
-    print(CONSUMER_KEY)
     CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
     ACCESS_KEY = os.environ['ACCESS_KEY']
     ACCESS_SECRET = os.environ['ACCESS_SECRET']
@@ -27,7 +26,6 @@ else:
     # Pyydetään SQLAlchemyä tulostamaan kaikki SQL-kyselyt
     app.config["SQLALCHEMY_ECHO"] = True
     fname = os.getcwd() + '\credentials'
-    print(fname)
     with open(fname) as f:
         content = f.readlines()
     # you may also want to remove whitespace characters like `\n` at the end of each line

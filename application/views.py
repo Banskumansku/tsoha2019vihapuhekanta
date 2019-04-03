@@ -8,7 +8,6 @@ from application.tweets.models import Tweet
 @app.route("/")
 @login_required
 def index():
-    """
     tweetquery = db.session().query(Tweet).filter(Tweet.account_id.contains(current_user.id))
     tweetSize = tweetquery.all()
     tweetquery = db.session().query(Tweet).filter(Tweet.account_id.contains(current_user.id),
@@ -22,5 +21,3 @@ def index():
     hateful_size = tweetquery.all()
     return render_template("index.html", tweets=len(tweetSize), tweetsNormal=len(normal_size),
                            tweetsOffensive=len(offensive_size), tweetsHateful=len(hateful_size))
-    """
-    return render_template("index.html")

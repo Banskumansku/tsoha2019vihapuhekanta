@@ -40,17 +40,3 @@ class User(db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
-
-    @staticmethod
-    def find_users_with_no_tasks():
-        print("jiuu")
-        stmt = text("SELECT Account.id, Account.name FROM Account"
-                    " LEFT JOIN Tweet ON Tweet.account_id = Account.id"
-                    " WHERE (Tweet.tweettype IS null OR Task.done = 1)"
-                    " GROUP BY Account.id"
-                    " HAVING COUNT(Task.id) = 0")
-        res = db.engine.execute(stmt)
-        for row in res:
-            print(row[0])
-            print(row[1])
-        # Does something else
