@@ -19,6 +19,5 @@ def index():
     tweetquery = db.session().query(Tweet).filter(Tweet.account_id.contains(current_user.id),
                                                   Tweet.tweettype.contains("hateful"))
     hateful_size = tweetquery.all()
-
     return render_template("index.html", tweets=len(tweetSize), tweetsNormal=len(normal_size),
                            tweetsOffensive=len(offensive_size), tweetsHateful=len(hateful_size))

@@ -14,10 +14,10 @@ import os
 # Using postgre
 if os.environ.get("HEROKU"):
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
-    CONSUMER_KEY = os.environ['CONSUMER_KEY']
-    CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
-    ACCESS_KEY = os.environ['ACCESS_KEY']
-    ACCESS_SECRET = os.environ['ACCESS_SECRET']
+    CONSUMER_KEY = os.environ.get(['CONSUMER_KEY'])
+    CONSUMER_SECRET = os.environ.get(['CONSUMER_SECRET'])
+    ACCESS_KEY = os.environ.get(['ACCESS_KEY'])
+    ACCESS_SECRET = os.environ.get(['ACCESS_SECRET'])
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
     auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
     api = tweepy.API(auth)
