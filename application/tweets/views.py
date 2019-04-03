@@ -14,7 +14,7 @@ def tweets_index():
     search = TweetSeachForm(request.form)
     if request.method == 'POST':
         return search_results(search)
-    tweetquery = db.session().query(Tweet).filter(Tweet.account_id.contains(current_user.id))
+    tweetquery = db.session().query(Tweet).filter(Tweet.account_id == current_user.id)
     tweets = tweetquery.all()
     return render_template("tweets/list.html", tweets=tweets, form=search)
 
@@ -27,11 +27,11 @@ def search_results(search):
     if searchString:
         if search.data['select'] == 'Tweet Id':
             searchQuery = db.session().query(Tweet).filter(Tweet.tweetid.contains(searchString),
-                                                           Tweet.account_id.contains(current_user.id))
+                                                           (Tweet.account_id == current_user.id))
             searchResults = searchQuery.all()
         elif search.data['select'] == 'Tweet Type':
             searchQuery = db.session().query(Tweet).filter(Tweet.tweettype.contains(searchString),
-                                                           Tweet.account_id.contains(current_user.id))
+                                                           (Tweet.account_id == current_user.id))
             searchResults = searchQuery.all()
     return render_template("tweets/list.html", tweets=searchResults, form=search)
 
@@ -45,7 +45,7 @@ def tweets_form():
 @login_required
 def tweets_view(id):
     tweets = []
-    tweets = db.session().query(Tweet).filter(Tweet.id.contains(id))
+    tweets = db.session().query(Tweet).filter(Tweet.id == id)
     return render_template('tweets/tweet.html', tweets=tweets)
 
 @app.route("/tweets/<id>", methods=["POST"])
