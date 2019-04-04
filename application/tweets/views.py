@@ -57,7 +57,7 @@ def tweets_view(id):
 @app.route("/tweets/<id>", methods=["POST"])
 @login_required
 def tweet_edit(id):
-    tweet = db.session().query(Tweet).filter(Tweet.id == id)
+    tweet = db.session().query(Tweet).filter(Tweet.id == id).first()
     tweet.tweetdescription = request.form.get("tweetdescription")
     db.session().commit()
     add_log("edit", current_user.id, id)
