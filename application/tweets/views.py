@@ -2,6 +2,8 @@ from flask_login import login_required, current_user
 
 from application import app, db, api
 from flask import redirect, render_template, request, url_for
+
+from application.logs.views import add_log
 from application.tweets.models import Tweet
 from application.tweets.forms import TweetForm, TweetSeachForm
 
@@ -58,6 +60,7 @@ def tweet_edit(id):
     tweet = db.session().query(Tweet).filter(Tweet.id == id)
     tweet.tweetdescription = request.form.get("tweetdescription")
     db.session().commit()
+    add_log("edit", current_user.id, id)
     return redirect(url_for("tweets_index"))
 
 
@@ -66,6 +69,7 @@ def tweet_edit(id):
 def tweet_delete(id):
     db.session.delete(Tweet.query.filter_by(id=id).first())
     db.session.commit()
+    add_log("delete", current_user.id, id)
     return redirect(url_for("tweets_index"))
 
 
@@ -83,4 +87,5 @@ def tweets_create():
     t.tweettext = text.text
     db.session().add(t)
     db.session().commit()
+    add_log("create", current_user.id, t.id)
     return redirect(url_for("tweets_index"))

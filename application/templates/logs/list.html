@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    {% if current_user.is_authenticated %}
+        <table class="table table-hover">
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>Modification</th>
+                <th>Tweet ID</th>
+                <th>Account ID</th>
+            </tr>
+            {% for log in logs %}
+                <tr>
+                    <td>{{ log.id }}</td>
+                    <td>{{ log.date_created }}</td>
+                    <td>{{ log.modification }}</td>
+                    <td>{{ log.tweet_id}}</td>
+                    <td>{{ log.account_id}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <div>Log in</div>
+    {% endif %}
+    <script type="text/javascript">
+    </script>
+{% endblock %}
