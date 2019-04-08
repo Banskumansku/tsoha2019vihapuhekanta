@@ -2,6 +2,8 @@
  A web thingie to store tweets with classification
  
  You can create your own account or use asd - asd as the account
+
+If you want to use the automatic tweet GET functionality you either have to input your own twitterAPI credentials or use the heroku.client
  
  App here -> https://tsoha2019vihapuhekanta.herokuapp.com/
  
