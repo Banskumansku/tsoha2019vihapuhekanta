@@ -30,10 +30,8 @@ def new_vote(tweet_id):
 
 
 def delete_vote(id):
-    db.session.delete(Vote.query.filter_by(tweet_id=id).first())
     vote = db.session().query(Vote).filter(Vote.tweet_id == id).first()
     if vote is None:
         return
-    db.session.delete(Vote.query.filter_by(tweet_id=id).first())
+    db.session.delete(Vote.query.filter(Vote.tweet_id == id).first())
     db.commit()
-

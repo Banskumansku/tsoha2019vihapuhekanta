@@ -17,7 +17,6 @@ def index():
     offensive = offensive_size(tweet_query)
     hateful = hateful_size(tweet_query)
     random_tweet = randRow()
-    vote = db.session.query().filter(Vote.tweet_id == random_tweet.id)
     return render_template("index.html", tweets=len(tweet_query), tweetsNormal=normal,
                            tweetsOffensive=offensive, tweetsHateful=hateful, tweet=random_tweet)
 
