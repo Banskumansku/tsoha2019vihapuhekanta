@@ -80,9 +80,9 @@ def tweets_create():
     if not form.validate():
         return render_template("tweets/new.html", form=form)
     try:
-        text = api.get_status(form.tweetid)
-    except errors as e:
-        return render_template("tweets/new.html", texterror=e[0], form=form)
+        text = api.get_status(form.tweetid.data)
+    except Exception as e:
+        return render_template("tweets/new.html", texterror=e, form=form)
     else:
         t = Tweet(form.tweetid.data, form.tweettype.data, form.tweetdescription.data, current_user.name)
         t.account_id = current_user.id

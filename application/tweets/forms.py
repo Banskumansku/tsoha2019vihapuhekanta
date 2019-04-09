@@ -3,7 +3,7 @@ from wtforms import Form, StringField, validators, SelectField
 
 
 class TweetForm(FlaskForm):
-    tweetid = StringField("Tweet Id", [validators.Length(min=19, max=19)])
+    tweetid = StringField("Tweet Id")
     tweettext = StringField("Tweet Text")
     postedby = StringField("Posted By")
     tweettype = StringField("Type of Text")
