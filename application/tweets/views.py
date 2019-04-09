@@ -1,21 +1,21 @@
 from flask_login import login_required, current_user
 
-from application import app, db, api
+from application import app, db, api, errors
 from flask import redirect, render_template, request, url_for
 
 from application.logs.views import add_log
 from application.tweets.models import Tweet
-from application.tweets.forms import TweetForm, TweetSeachForm
+from application.tweets.forms import TweetForm, TweetSearchForm
+from application.votes.views import delete_vote
 
 
 @app.route("/tweets", methods=['GET', 'POST'])
 @login_required
 def tweets_index():
-    search = TweetSeachForm(request.form)
+    search = TweetSearchForm(request.form)
     if request.method == 'POST':
         return search_results(search)
-    tweetquery = db.session().query(Tweet).filter(Tweet.account_id == current_user.id)
-    tweets = tweetquery.all()
+    tweets = tweet_query_user().all()
     return render_template("tweets/list.html", tweets=tweets, form=search)
 
 
@@ -38,7 +38,6 @@ def search_results(search):
     elif searchString == "":
         searchResults = db.session().query(Tweet).filter(Tweet.account_id == current_user.id)
         return render_template("tweets/list.html", tweets=searchResults, form=search)
-
 
 
 @app.route("/tweets/new/")
@@ -67,6 +66,7 @@ def tweet_edit(id):
 @app.route("/tweets/<id>/delete", methods=["POST"])
 @login_required
 def tweet_delete(id):
+    delete_vote(id)
     db.session.delete(Tweet.query.filter_by(id=id).first())
     db.session.commit()
     add_log("delete", current_user.id, id)
@@ -79,13 +79,20 @@ def tweets_create():
     form = TweetForm(request.form)
     if not form.validate():
         return render_template("tweets/new.html", form=form)
+    try:
+        text = api.get_status(form.tweetid)
+    except errors as e:
+        return render_template("tweets/new.html", texterror=e[0], form=form)
+    else:
+        t = Tweet(form.tweetid.data, form.tweettype.data, form.tweetdescription.data, current_user.name)
+        t.account_id = current_user.id
+        t.addedby = current_user.name
+        t.tweettext = text.text
+        db.session().add(t)
+        db.session().commit()
+        add_log("create", current_user.id, t.id)
+        return redirect(url_for("tweets_index"))
 
-    t = Tweet(form.tweetid.data, form.tweettype.data, form.tweetdescription.data, current_user.name)
-    t.account_id = current_user.id
-    t.addedby = current_user.name
-    text = api.get_status(t.tweetid)
-    t.tweettext = text.text
-    db.session().add(t)
-    db.session().commit()
-    add_log("create", current_user.id, t.id)
-    return redirect(url_for("tweets_index"))
+
+def tweet_query_user():
+    return db.session().query(Tweet).filter(Tweet.account_id == current_user.id)

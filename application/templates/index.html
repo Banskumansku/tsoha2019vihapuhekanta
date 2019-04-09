@@ -9,15 +9,30 @@
             <p>Tweets added {{ tweets }}</p>
         </h3>
         <h4>
-            Normal {{ tweetsNormal }}
+
+            <a href="#">Normal {{ tweetsNormal }}</a>
         </h4>
         <h4>
-            Offensive {{ tweetsOffensive }}
+            <a href="#">Offensive {{ tweetsOffensive }}</a>
         </h4>
         <h4>
-            Hateful {{ tweetsHateful }}
+            <a href="#">Hateful {{ tweetsHateful }}</a>
         </h4>
 
+        <div id="random_tweet">
+            <p>Would you consider this normal {{ tweet.tweettype }} text?</p>
+            <p>{{ tweet.tweettext }}</p>
+            <form method="POST" action="{{ url_for('random_tweet_vote', id = tweet.id) }}">
+                <input type="hidden" value="{{ tweet.id }}" name="id">
+                <input type="submit" name="vote_button" value="Yes"/>
+            </form>
+            <form method="POST" action="{{ url_for('random_tweet_vote', id = tweet.id) }}">
+                <input type="hidden" value="{{ tweet.id }}" name="id">
+                <input type="submit" name="vote_button" value="No"/>
+            </form>
+
+
+        </div>
     {% else %}
         <h1>
             Hello, please login or register.

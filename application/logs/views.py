@@ -13,29 +13,17 @@ def view_logs():
 def add_log(modification, tweet_id, account_id):
     if modification == "delete":
         m = "User deleted tweet"
-        l = Log(m, account_id, tweet_id)
-        db.session().add(l)
-        db.session().commit()
     elif modification == "edit":
         m = "User edited tweet"
-        l = Log(m, account_id, tweet_id)
-        db.session().add(l)
-        db.session().commit()
-
     elif modification == 'create':
         m = "User created tweet"
-        l = Log(m, account_id, tweet_id)
-        db.session().add(l)
-        db.session().commit()
-
     elif modification == 'account_delete':
         m = "User account deleted"
-        l = Log(m, account_id)
-        db.session().add(l)
-        db.session().commit()
-
     elif modification == 'account_created':
         m = "User account created"
-        l = Log(m, account_id)
-        db.session().add(l)
-        db.session().commit()
+    elif modification == 'vote':
+        m = "User voted on tweet"
+
+    l = Log(m, account_id, tweet_id)
+    db.session().add(l)
+    db.session().commit()

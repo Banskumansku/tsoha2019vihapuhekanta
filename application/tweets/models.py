@@ -1,12 +1,11 @@
-from sqlalchemy import text
-
 from application import db
+
 
 class Tweet(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
     date_modified = db.Column(db.DateTime, default=db.func.current_timestamp(),
-    onupdate=db.func.current_timestamp())
+                              onupdate=db.func.current_timestamp())
     tweetid = db.Column(db.String(100))
     tweettype = db.Column(db.String(100))
     tweettext = db.Column(db.String(300))

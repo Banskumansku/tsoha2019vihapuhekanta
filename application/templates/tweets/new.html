@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block body %}
     {% if current_user.is_authenticated %}
+        <h1>Tweet id is the line of numbers at the end of a tweet's url eg. <b>1111111111111111111</b> and is 19 letters long</h1>
         <form method="POST" action="{{ url_for('tweets_create') }}">
             <div>
                 <input type="text" name="tweetid" id="tweetid"/>
@@ -13,6 +14,7 @@
                            placeholder="Can be left blank"/>
                 </div>
             </div>
+            {{ texterror }}
             {% for error in form.tweetid.errors %}
                 <li>{{ error }}</li>
             {% endfor %}

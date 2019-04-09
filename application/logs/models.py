@@ -10,6 +10,7 @@ class Log(db.Model):
     account_id = db.Column(db.Integer, nullable=False)
     tweet_id = db.Column(db.Integer, nullable=True)
 
+
     def __init__(self, modification, account_id, tweet_id):
         self.modification = modification
         self.account_id = account_id
