@@ -4,19 +4,26 @@
         <h2>
             {{ current_user.name }}
         </h2>
-
+        {% if most_positively_voted is not none %}
+            {% if most_negatively_voted is defined %}
+                <p>Most positively voted tweet is <b>"{{ most_positively_voted.tweettext }}"</b>
+                    with {{ most_positively_voted.affirm }} votes</p>
+                <p>Most negatively voted tweet is <b>"{{ most_negatively_voted.tweettext }}"</b>
+                    with {{ most_negatively_voted.oppose }} votes</p>
+            {% endif %}
+        {% endif %}
         <h3>
-            <p>Tweets added {{ tweets }}</p>
+            <p>Tweets added {{ all[0] }}</p>
         </h3>
         <h4>
 
-            <a href="#">Normal {{ tweetsNormal }}</a>
+            <a href="#">Normal {{ all[1] }}</a>
         </h4>
         <h4>
-            <a href="#">Offensive {{ tweetsOffensive }}</a>
+            <a href="#">Offensive {{ all[2] }}</a>
         </h4>
         <h4>
-            <a href="#">Hateful {{ tweetsHateful }}</a>
+            <a href="#">Hateful {{ all[3] }}</a>
         </h4>
 
         <div id="random_tweet">

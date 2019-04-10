@@ -1,3 +1,5 @@
+from sqlalchemy import text
+
 from application import db
 
 
@@ -20,3 +22,4 @@ class Tweet(db.Model):
         self.tweettype = tweettype
         self.tweetdescription = tweetdescription
         self.addedby = addedby
+

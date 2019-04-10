@@ -34,6 +34,9 @@ class User(db.Model):
     def is_authenticated(self):
         return True
 
+    def roles(self):
+        return ["ADMIN"]
+
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 

@@ -1,6 +1,6 @@
 from flask_login import login_required, current_user
 
-from application import app, db, api, errors
+from application import app, db, api
 from flask import redirect, render_template, request, url_for
 
 from application.logs.views import add_log

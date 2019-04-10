@@ -2,20 +2,41 @@ from flask import render_template, request, url_for, redirect
 from flask_login import login_required, current_user
 from sqlalchemy import func
 
-from application import app, db
+from application import app
 from application.tweets.models import Tweet
 from application.tweets.views import tweet_query_user
 from application.votes.models import Vote
 from application.votes.views import add_vote
 
+
 @app.route("/")
 @login_required
 def index():
+    most_votes = Vote.find_users_most_voted_tweet(current_user.id)
+    least_votes = Vote.find_users_least_voted_tweet(current_user.id)
+    try:
+        most_positively_voted = most_votes[0]
+        most_negatively_voted = least_votes[0]
+    except Exception as e:
+        most_positively_voted = None
+        most_negatively_voted = None
+        print(e)
     tweet_query = tweet_query_user()
-    amounts = tweet_amounts(tweet_query.all())
+    amounts = [0, 0, 0, 0]
+    for row in tweet_query:
+        print(row.tweettype)
+        if row.tweettype == 'normal':
+            amounts[0] = amounts[0] + 1
+            amounts[1] = amounts[1] + 1
+        elif row.tweettype == 'offensive':
+            amounts[0] = amounts[0] = amounts[0] + 1
+            amounts[2] = amounts[2] + 1
+        else:
+            amounts[0] = amounts[0] = amounts[0] + 1
+            amounts[3] = amounts[3] + 1
     random_tweet = randRow()
-    return render_template("index.html", all=amounts[1], tweetsNormal=amounts[2],
-                           tweetsOffensive=amounts[3], tweetsHateful=amounts[4], tweet=random_tweet)
+    return render_template("index.html", all=amounts, tweet=random_tweet, most_positively_voted=most_positively_voted,
+                           most_negatively_voted=most_negatively_voted)
 
 
 @app.route("/<id>", methods=['POST'])
@@ -42,23 +63,3 @@ def offensive_size(tweetquery):
 
 def hateful_size(tweetquery):
     return len(tweetquery)
-
-
-def tweet_amounts(tweet_query):
-    amounts = [0, 0, 0, 0, 0]
-    amounts[1] = 1
-    amounts[2] = 0
-    amounts[3] = 0
-    amounts[4] = 0
-
-    for row in tweet_query:
-        if row.tweettype == "normal":
-            amounts[0] = + 1
-            amounts[1] = + 1
-        elif row.tweettype == "offensive":
-            amounts[0] = + 1
-            amounts[2] = + 1
-        else:
-            amounts[0] = + 1
-            amounts[3] = + 1
-    return amounts
