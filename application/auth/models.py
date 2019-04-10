@@ -14,13 +14,14 @@ class User(db.Model):
     name = db.Column(db.String(144), nullable=False)
     username = db.Column(db.String(144), nullable=False)
     password = db.Column(db.String(144), nullable=False)
-
+    urole = db.Column(db.String(80))
     tweets = db.relationship("Tweet", backref='account', lazy=True)
 
-    def __init__(self, username, password):
+    def __init__(self, username, password, urole):
         self.name = username
         self.username = username
         self.password = password
+        self.urole = urole
 
     def get_id(self):
         return self.id
@@ -34,8 +35,8 @@ class User(db.Model):
     def is_authenticated(self):
         return True
 
-    def roles(self):
-        return ["ADMIN"]
+    def get_urole(self):
+        return self.urole
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)

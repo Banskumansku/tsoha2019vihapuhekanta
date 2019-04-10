@@ -34,7 +34,13 @@ def index():
         else:
             amounts[0] = amounts[0] = amounts[0] + 1
             amounts[3] = amounts[3] + 1
-    random_tweet = randRow()
+
+    try:
+        random_tweet = randRow()
+    except Exception as e:
+        random_tweet = None
+        print(e)
+
     return render_template("index.html", all=amounts, tweet=random_tweet, most_positively_voted=most_positively_voted,
                            most_negatively_voted=most_negatively_voted)
 

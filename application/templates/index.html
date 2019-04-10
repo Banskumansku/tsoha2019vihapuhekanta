@@ -5,12 +5,12 @@
             {{ current_user.name }}
         </h2>
         {% if most_positively_voted is not none %}
-            {% if most_negatively_voted is defined %}
-                <p>Most positively voted tweet is <b>"{{ most_positively_voted.tweettext }}"</b>
-                    with {{ most_positively_voted.affirm }} votes</p>
-                <p>Most negatively voted tweet is <b>"{{ most_negatively_voted.tweettext }}"</b>
-                    with {{ most_negatively_voted.oppose }} votes</p>
-            {% endif %}
+            <p>Most positively voted tweet is <b>"{{ most_positively_voted.tweettext }}"</b>
+                with {{ most_positively_voted.affirm }} votes</p>
+        {% endif %}
+        {% if most_negatively_voted is not none %}
+            <p>Most negatively voted tweet is <b>"{{ most_negatively_voted.tweettext }}"</b>
+                with {{ most_negatively_voted.oppose }} votes</p>
         {% endif %}
         <h3>
             <p>Tweets added {{ all[0] }}</p>
@@ -26,6 +26,7 @@
             <a href="#">Hateful {{ all[3] }}</a>
         </h4>
 
+         {% if tweet is not none %}
         <div id="random_tweet">
             <p>Would you consider this normal {{ tweet.tweettype }} text?</p>
             <p>{{ tweet.tweettext }}</p>
@@ -37,9 +38,8 @@
                 <input type="hidden" value="{{ tweet.id }}" name="id">
                 <input type="submit" name="vote_button" value="No"/>
             </form>
-
-
         </div>
+             {% endif %}
     {% else %}
         <h1>
             Hello, please login or register.

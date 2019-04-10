@@ -89,6 +89,7 @@ def login_required(role="ANY"):
 
     return wrapper
 
+
 # Read applications view
 from application import views
 

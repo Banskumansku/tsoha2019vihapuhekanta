@@ -28,7 +28,8 @@ def auth_register():
         return redirect(url_for('index'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(form.username.data, form.password.data)
+        urole = "USER"
+        user = User(form.username.data, form.password.data, urole)
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
