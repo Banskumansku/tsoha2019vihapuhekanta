@@ -34,4 +34,4 @@ def delete_vote(id):
     if vote is None:
         return
     db.session.delete(Vote.query.filter(Vote.tweet_id == id).first())
-    db.commit()
+    db.session.commit()

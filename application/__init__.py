@@ -3,7 +3,6 @@ import tweepy
 from flask import Flask
 
 app = Flask(__name__)
-
 # Tuodaan SQLAlchemy käyttöön
 from flask_sqlalchemy import SQLAlchemy
 # Käytetään tweets.db-nimistä SQLite-tietokantaa. Kolme vinoviivaa
@@ -60,7 +59,7 @@ login_manager.login_message = "Please login to use this functionality."
 from functools import wraps
 
 
-def login_required(role="ANY"):
+def login_required(role="ADMIN"):
     def wrapper(fn):
         @wraps(fn)
         def decorated_view(*args, **kwargs):
@@ -76,7 +75,7 @@ def login_required(role="ANY"):
                 unauthorized = True
 
                 for user_role in current_user.roles():
-                    if user_role == role:
+                    if user_role == "ADMIN":
                         unauthorized = False
                         break
 

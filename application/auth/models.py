@@ -35,8 +35,11 @@ class User(db.Model):
     def is_authenticated(self):
         return True
 
-    def get_urole(self):
-        return self.urole
+    def roles(self):
+        if (self.urole == "ADMIN"):
+            return ["ADMIN"]
+        else:
+            return ["USER"]
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)

@@ -1,10 +1,11 @@
 from flask import render_template
 
-from application import app, db
+from application import app, db, login_required
 from application.logs.models import Log
 
 
 @app.route("/logs/list", methods=["GET"])
+@login_required(role="ADMIN")
 def view_logs():
     logs = db.session().query(Log).all()
     return render_template("logs/list.html", logs=logs)

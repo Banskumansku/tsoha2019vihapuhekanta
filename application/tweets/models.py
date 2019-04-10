@@ -1,5 +1,3 @@
-from sqlalchemy import text
-
 from application import db
 
 
