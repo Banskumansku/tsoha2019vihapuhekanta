@@ -28,14 +28,17 @@ def auth_register():
         return redirect(url_for('index'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        urole = "ANY"
+        if form.username.data == "ADMIN":
+            urole = "ADMIN"
+        else:
+            urole = "ANY"
         user = User(form.username.data, form.password.data, urole)
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('index'))
-    return render_template('/auth/register.html', form=form)
+    return render_template('auth/register.html', form=form)
 
 
 @app.route("/auth/logout")

@@ -17,7 +17,9 @@
                 <th>Type</th>
                 <th>Text</th>
                 <th>Description</th>
-                <th>Added By</th>
+                {% if current_user.urole == "ADMIN" %}
+                    <th>Added By</th>
+                {% endif %}
             </tr>
             {% for tweet in tweets %}
                 <tr>
@@ -25,7 +27,9 @@
                     <td>{{ tweet.tweettype }}</td>
                     <td>{{ tweet.tweettext }}</td>
                     <td>{{ tweet.tweetdescription }}</td>
+                    {% if current_user.urole == "ADMIN" %}
                     <td>{{ tweet.addedby }}</td>
+                    {% endif %}
                     <td>
                         <form method="POST" action="{{ url_for('tweet_delete', id = tweet.id) }}">
                             <input type="submit" value="Delete">

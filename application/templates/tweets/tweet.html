@@ -1,39 +1,39 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  <p>
-<table>
-    <tr>
-      <th>Id</th>
-      <th>Type</th>
-      <th>Text</th>
-      <th>Added By</th>
-        <th>Description</th>
-      <th></th>
-    </tr>
-    {% for tweet in tweets %}
-    <tr>
-        <td>{{ tweet.tweetid }}</td>
-        <td>{{ tweet.tweettype }}</td>
-        <td>{{ tweet.tweettext }}</td>
-        <td>{{ tweet.addedby }}</td>
-        <td>{{ tweet.tweetdescription }}</td>
-        <td>
-                        <form method="POST" action="{{ url_for('tweet_delete', id = tweet.id) }}">
-                            <input type="submit" value="Delete">
+    <p>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Type</th>
+            <th>Text</th>
+            <th>Added By</th>
+            <th>Description</th>
+            <th></th>
+        </tr>
+        {% for tweet in tweets %}
+            <tr>
+                <td>{{ tweet.tweetid }}</td>
+                <td>{{ tweet.tweettype }}</td>
+                <td>{{ tweet.tweettext }}</td>
+                <td>{{ tweet.addedby }}</td>
+                <td>{{ tweet.tweetdescription }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('tweet_delete', id = tweet.id) }}">
+                        <input type="submit" value="Delete">
+                    </form>
+                </td>
+                <td>
+                    <div>
+                        <form method="POST" action="{{ url_for('tweet_edit', id = tweet.id) }}">
+                            <input type="text" name="tweetdescription" placeholder="Edit"/>
+                            <input type="hidden" value="{{ tweet.id }}" name="id">
+                            <input type="submit" value="Edit">
                         </form>
-        </td>
-        <td>
-            <div>
-            <form method="POST" action="{{ url_for('tweet_edit', id = tweet.id) }}">
-                <input type="text" name="tweetdescription" placeholder="Edit"/>
-                <input type="hidden" value="{{ tweet.id }}" name="id">
-                <input type="submit" value="Edit">
-            </form>
-                </div>
-        </td>
+                    </div>
+                </td>
 
-    </tr>
-    {% endfor %}
-  </table>  </p>
+            </tr>
+        {% endfor %}
+    </table>  </p>
 {% endblock %}

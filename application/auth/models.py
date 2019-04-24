@@ -36,7 +36,7 @@ class User(db.Model):
         return True
 
     def roles(self):
-        if (self.urole == "ADMIN"):
+        if self.urole == "ADMIN":
             return ["ADMIN"]
         else:
             return ["USER"]
