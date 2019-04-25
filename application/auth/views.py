@@ -28,15 +28,25 @@ def auth_register():
         return redirect(url_for('index'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        if form.username.data == "ADMIN":
+        if form.username.data == "admin":
             urole = "ADMIN"
         else:
             urole = "ANY"
+
+        if not form.username.data.islower():
+            error = "Usernames should be in lowercase"
+            return render_template('auth/register.html', form=form, error=error)
+        if '@' in form.username.data or '-' in form.username.data or '|' in form.username.data:
+            error = "Usernames should not have special characters."
+            return render_template('auth/register.html', form=form, error=error)
+
         user = User(form.username.data, form.password.data, urole)
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
         flash('Congratulations, you are now a registered user!')
+        user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
+        login_user(user)
         return redirect(url_for('index'))
     return render_template('auth/register.html', form=form)
 
@@ -45,3 +55,5 @@ def auth_register():
 def auth_logout():
     logout_user()
     return redirect(url_for("index"))
+
+

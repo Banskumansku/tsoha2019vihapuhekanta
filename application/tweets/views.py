@@ -16,9 +16,9 @@ def tweets_index():
     if request.method == 'POST':
         return search_results(search)
     if current_user.urole == "ADMIN":
-        tweets = tweet_query_all().all()
+        tweets = tweet_query_all().limit(100).all()
     else:
-        tweets = tweet_query_user().all()
+        tweets = tweet_query_user().limit(100).all()
     return render_template("tweets/list.html", tweets=tweets, form=search)
 
 
@@ -32,27 +32,27 @@ def search_results(search):
         if searchString:
             if search.data['select'] == 'Tweet Text':
                 searchQuery = db.session().query(Tweet).filter(Tweet.tweettext.contains(searchString))
-                searchResults = searchQuery.all()
+                searchResults = searchQuery.limit(100).all()
             elif search.data['select'] == 'Tweet Type':
                 searchQuery = db.session().query(Tweet).filter(Tweet.tweettype.contains(searchString))
-                searchResults = searchQuery.all()
+                searchResults = searchQuery.limit(100).all()
             return render_template("tweets/list.html", tweets=searchResults, form=search)
         elif searchString == "":
-            searchResults = db.session().query(Tweet)
+            searchResults = db.session().limit(100).query(Tweet)
             return render_template("tweets/list.html", tweets=searchResults, form=search)
     else:
         if searchString:
             if search.data['select'] == 'Tweet Text':
                 searchQuery = db.session().query(Tweet).filter(Tweet.tweettext.contains(searchString),
                                                                (Tweet.account_id == current_user.id))
-                searchResults = searchQuery.all()
+                searchResults = searchQuery.limit(100).all()
             elif search.data['select'] == 'Tweet Type':
                 searchQuery = db.session().query(Tweet).filter(Tweet.tweettype.contains(searchString),
                                                                (Tweet.account_id == current_user.id))
-                searchResults = searchQuery.all()
+                searchResults = searchQuery.limit(100).all()
             return render_template("tweets/list.html", tweets=searchResults, form=search)
         elif searchString == "":
-            searchResults = db.session().query(Tweet).filter(Tweet.account_id == current_user.id)
+            searchResults = db.session().query(Tweet).filter(Tweet.account_id == current_user.id).limit(100)
             return render_template("tweets/list.html", tweets=searchResults, form=search)
 
 
