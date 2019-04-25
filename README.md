@@ -7,6 +7,8 @@ If you want to use the automatic tweet GET functionality you either have to inpu
  
  App here -> https://tsoha2019vihapuhekanta.herokuapp.com/
  
+ Installation guide here -> [Installation guide](https://github.com/Banskumansku/tsoha2019vihapuhekanta/blob/master/Documentation/installation.md)
+ 
  DB documentation here -> [Database documentation](https://github.com/Banskumansku/tsoha2019vihapuhekanta/blob/master/Documentation/dbdiagram.png)
 
  User case documentation here -> [Use case documentation](https://github.com/Banskumansku/tsoha2019vihapuhekanta/blob/master/Documentation/Usecase.md)

@@ -1,4 +1,4 @@
-#In order to run this program locally you must first have a twitter api app registered 
+# In order to run this program locally you must first have a twitter api app registered 
 Info about that can be found here: https://developer.twitter.com/
 
 
