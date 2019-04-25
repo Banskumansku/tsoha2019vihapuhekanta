@@ -47,6 +47,9 @@ def auth_register():
         flash('Congratulations, you are now a registered user!')
         user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
         login_user(user)
+        modification = 'account_created'
+        from application.logs.views import add_log
+        add_log(modification, None, user.id)
         return redirect(url_for('index'))
     return render_template('auth/register.html', form=form)
 
