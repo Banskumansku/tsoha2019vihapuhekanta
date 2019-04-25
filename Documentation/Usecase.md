@@ -14,3 +14,7 @@ User doesn't want the tweet to be in DB anymore
 User searches for tweet
 From query results user presses delete button
 Entry is deleted
+
+# How do? Admin functionality
+Where the normal user can only see their own tweets, the admin can see the listing of all tweets, search, delete and edit all tweets. 
+Admin can also see the logs of every event in the system
