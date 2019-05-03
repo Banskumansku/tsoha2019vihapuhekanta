@@ -76,10 +76,15 @@ def users_delete(id):
     add_log("account_delete", None, tweetaccountid)
     from application.tweets.models import Tweet
     tweets = db.session().query(Tweet).filter(Tweet.account_id == id).all()
+    delete_user_tweets(tweets)
+    db.session.delete(User.query.filter_by(id=id).first())
+    db.session.commit()
+    return redirect(url_for("auth_users"))
+
+
+def delete_user_tweets(tweets):
     for tweet in tweets:
         print(tweet.tweettext)
         tweet.addedby = "admin"
+        tweet.account_id = 0
         db.session.commit()
-
-    db.session.delete(User.query.filter_by(id=id).first())
-    return redirect(url_for("auth_users"))
