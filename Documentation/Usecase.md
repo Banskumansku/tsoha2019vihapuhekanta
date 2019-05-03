@@ -19,5 +19,8 @@ Entry is deleted
 Where the normal user can only see their own tweets, the admin can see the listing of all tweets, search, delete and edit all tweets. 
 Admin can also see the logs of every event in the system
 
+# How do? Extended admin functionality
+At the moment only admin can delete accounts from auth/users, under time constraints it wasn't added to every user
+
 # How to? Downloading DB (To be made)
 User can select the "Download" option to receive the entire DB in a cvs format
