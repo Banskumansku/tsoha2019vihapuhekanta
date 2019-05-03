@@ -8,5 +8,12 @@ Info about that can be found here: https://developer.twitter.com/
   * CONSUMER_SECRET
   * ACCESS_KEY
   * ACCESS_SECRET
+  
+* For virtualenv to install all files in the requirements.txt file.
+
+  *  cd to the directory where requirements.txt is located
+  *   activate your virtualenv
+  *   run:  pip install -r requirements.txt in your shell
+
 * For ADMIN functionality create an account called "ADMIN"
 * For user funtionality create any user
