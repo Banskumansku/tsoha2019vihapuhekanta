@@ -63,7 +63,7 @@ def auth_logout():
 @app.route("/auth/users", methods=['GET'])
 @login_required(role="ADMIN")
 def auth_users():
-    users = db.session().query(User).all()
+    users = db.session().query(User).filter(User.id != current_user.id).all()
     return render_template("auth/users.html", users=users)
 
 
