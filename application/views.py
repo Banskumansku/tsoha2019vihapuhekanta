@@ -21,6 +21,7 @@ def index():
         most_positively_voted = None
         most_negatively_voted = None
         print(e)
+
     tweet_query = tweet_query_user()
     amounts = [0, 0, 0, 0]
     for row in tweet_query:
