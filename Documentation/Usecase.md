@@ -24,3 +24,10 @@ At the moment only admin can delete accounts from auth/users, under time constra
 
 # How to? Downloading DB (To be made)
 User can select the "Download" option to receive the entire DB in a cvs format
+
+# How to? Delete own account (to be made)
+Go to account information and select delete account
+
+#How to? Change user password (to be made)
+Go to account information and select change password
+Be taken to change password screen and be made to write it out twice
