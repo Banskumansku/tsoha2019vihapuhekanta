@@ -86,5 +86,5 @@ def delete_user_tweets(tweets):
     for tweet in tweets:
         print(tweet.tweettext)
         tweet.addedby = "admin"
-        tweet.account_id = 0
+        tweet.account_id = current_user.id
         db.session.commit()
