@@ -70,19 +70,16 @@ def auth_users():
 @app.route("/auth/users/<id>/delete", methods=["POST"])
 @login_required(role="ADMIN")
 def users_delete(id):
+    tweetaccountid = id
+    from application.logs.views import add_log
+
+    add_log("account_delete", None, tweetaccountid)
     from application.tweets.models import Tweet
-    tweets = db.session().query(Tweet).filter(Tweet.account_id == id)
+    tweets = db.session().query(Tweet).filter(Tweet.account_id == id).all()
     for tweet in tweets:
+        print(tweet.tweettext)
         tweet.addedby = "admin"
-        db.session.commit(tweet)
+        db.session.commit()
 
     db.session.delete(User.query.filter_by(id=id).first())
-    from application.logs.views import add_log
-    add_log("account_delete", id, id)
     return redirect(url_for("auth_users"))
-
-
-
-
-
-
