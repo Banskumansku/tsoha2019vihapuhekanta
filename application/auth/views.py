@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, current_user
 
-from application import app, db
+from application import app, db, login_required
 from application.auth.models import User
 from application.auth.forms import LoginForm, RegistrationForm
 
@@ -58,5 +58,31 @@ def auth_register():
 def auth_logout():
     logout_user()
     return redirect(url_for("index"))
+
+
+@app.route("/auth/users", methods=['GET'])
+@login_required(role="ADMIN")
+def auth_users():
+    users = db.session().query(User).all()
+    return render_template("auth/users.html", users=users)
+
+
+@app.route("/auth/users/<id>/delete", methods=["POST"])
+@login_required(role="ADMIN")
+def users_delete(id):
+    from application.tweets.models import Tweet
+    tweets = db.session().query(Tweet).filter(Tweet.account_id == id)
+    for tweet in tweets:
+        tweet.addedby = "admin"
+        db.session.commit(tweet)
+
+    db.session.delete(User.query.filter_by(id=id).first())
+    from application.logs.views import add_log
+    add_log("account_delete", id, id)
+    return redirect(url_for("auth_users"))
+
+
+
+
 
 

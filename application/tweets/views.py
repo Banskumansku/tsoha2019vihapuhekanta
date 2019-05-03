@@ -36,9 +36,9 @@ def search_results(search):
             elif search.data['select'] == 'Tweet Type':
                 searchQuery = db.session().query(Tweet).filter(Tweet.tweettype.contains(searchString))
                 searchResults = searchQuery.limit(100).all()
-            return render_template("tweets/list.html", tweets=searchResults, form=search)
+            return render_template("tweets/list. html", tweets=searchResults, form=search)
         elif searchString == "":
-            searchResults = db.session().limit(100).query(Tweet)
+            searchResults = db.session().query(Tweet).limit(100)
             return render_template("tweets/list.html", tweets=searchResults, form=search)
     else:
         if searchString:
