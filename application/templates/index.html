@@ -26,23 +26,32 @@
             <a href="#">Hateful {{ all[3] }}</a>
         </h4>
 
-         {% if tweet is not none %}
-        <div id="random_tweet">
-            <p>Would you consider this normal {{ tweet.tweettype }} text?</p>
-            <p>{{ tweet.tweettext }}</p>
-            <form method="POST" action="{{ url_for('random_tweet_vote', id = tweet.id) }}">
-                <input type="hidden" value="{{ tweet.id }}" name="id">
-                <input type="submit" name="vote_button" value="Yes"/>
-            </form>
-            <form method="POST" action="{{ url_for('random_tweet_vote', id = tweet.id) }}">
-                <input type="hidden" value="{{ tweet.id }}" name="id">
-                <input type="submit" name="vote_button" value="No"/>
-            </form>
-        </div>
-             {% endif %}
+        {% if tweet is not none %}
+            <div id="random_tweet">
+                <p>Would you consider this normal {{ tweet.tweettype }} text?</p>
+                <p>{{ tweet.tweettext }}</p>
+                <form method="POST" action="{{ url_for('random_tweet_vote', id = tweet.id) }}">
+                    <input type="hidden" value="{{ tweet.id }}" name="id">
+                    <input type="submit" name="vote_button" value="Yes"/>
+                </form>
+                <form method="POST" action="{{ url_for('random_tweet_vote', id = tweet.id) }}">
+                    <input type="hidden" value="{{ tweet.id }}" name="id">
+                    <input type="submit" name="vote_button" value="No"/>
+                </form>
+            </div>
+        {% endif %}
     {% else %}
         <h1>
             Hello, please login or register.
         </h1>
+        <p>
+        
+        </p>
+        <div>
+            <h5>
+                This is a small web thingie to store hateful or offensive tweets you come by on twitter. Log in to use
+                the functionality.
+            </h5>
+        </div>
     {% endif %}
 {% endblock %}

@@ -10,8 +10,10 @@ from application.votes.views import add_vote
 
 
 @app.route("/")
-@login_required
 def index():
+    if not current_user.is_authenticated:
+        return render_template("index.html")
+
     most_votes = Vote.find_users_most_voted_tweet(current_user.id)
     least_votes = Vote.find_users_least_voted_tweet(current_user.id)
     try:
